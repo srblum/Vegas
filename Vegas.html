@@ -1,10 +1,32 @@
 <!DOCTYPE html>
 <html>
-<body>
-	<h1>1000 Nights in Vegas</h1>
-	<button id="go">Go!</button>
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="Vegas.js"></script>
 	<script>
-	
+		function runSim(form) {
+		    var startCash = Number(form.startCash.value);
+		    var betCash = Number(form.betCash.value);
+		    var numNights = 1000;
+		    var cashArrs=[];
+		    for(var i=0;i<numNights;i++){
+				cashArrs[cashArrs.length]=simRoulette(startCash,betCash);
+		    }
+			var finalAverage=0;
+			for(var i=0;i<cashArrs.length;i++){
+				finalAverage+=cashArrs[i][cashArrs[i].length-1];
+			}
+			finalAverage/=numNights;
+			console.log(finalAverage);
+		}
 	</script>
+</head>
+<body>
+	<h1>A Thousand Nights in Vegas</h1>
+	<FORM NAME="myform">
+	Starting cash:<INPUT NAME="startCash"><BR>
+	Bet amount:   <INPUT NAME="betCash"><BR>
+	<INPUT TYPE="button" Value="Start" onClick="runSim(this.form)">
+	</FORM>
 </body>
 </html>
