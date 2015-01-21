@@ -4,15 +4,15 @@
 function runSim(form) {
     var startCash = Number(form.startCash.value);
     var betCash = Number(form.betCash.value);
-    var numNights = 100;
+    var numNights = 1000;
     var cashArrs=[];
     for(var i=0;i<numNights;i++){
 		cashArrs[cashArrs.length]=simRoulette(startCash,betCash);
     }
 
 	//Specify the width and height of the svg element
-	var w = 600,
-	    h = 200;
+	var w = 300,
+	    h = 100;
 
 	//maps the domain of the data (0,length-1)
 	//onto the range of x screen coordinates (which correspond
@@ -50,7 +50,7 @@ function runSim(form) {
 	}
 }
 
-//Simulates a single night of roulette
+//Simulates a single night of roulette (100 spins)
 //Returns an array of 101 cash values
 function simRoulette(startCash,betCash){
 	var cashArr=[startCash];
@@ -90,13 +90,13 @@ function drawPlot(cashArr,svg,line){
         //Documentation about transitions here:
         //https://github.com/mbostock/d3/wiki/Transitions
         .transition()
-        .duration(500)
+        .duration(3500)
         .attrTween('d', pathTween);
     
     function pathTween() {
         var interpolate = d3.scale.quantile()
                 .domain([0,1])
-                .range(d3.range(1, data.length + 1));
+                .range(d3.range(1, data.length-1));
         return function(t) {
             return line(data.slice(0, interpolate(t)));
         };
