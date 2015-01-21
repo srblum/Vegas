@@ -2,5 +2,15 @@ path {
     stroke: black;
     stroke-width: 2;
     fill: none;
-    opacity:0.01;
+    opacity:0.02;
+}
+.ave{
+	stroke: red;
+    stroke-width: 2;
+    fill: none;
+    opacity:1;
+}
+.axis text {
+	font-family: sans-serif;
+	font-size: 11px;
 }
