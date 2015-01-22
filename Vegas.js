@@ -4,7 +4,7 @@
 function runSim(form) {
     var startCash = Number(form.startCash.value);
     var betCash = Number(form.betCash.value);
-    var numNights = 100;
+    var numNights = 200;
     var cashArrs=[];
     for(var i=0;i<numNights;i++){
 		cashArrs[cashArrs.length]=simRoulette(startCash,betCash);
@@ -21,8 +21,8 @@ function runSim(form) {
 		aveArr[aveArr.length]=ave;
 	}
 	//Specify the width and height of the svg element
-	var w = 300,
-	    h = 100;
+	var w = 900,
+	    h = 300;
 	    padding = 30;
 
 	//maps the domain of the data (0,length-1)
@@ -53,19 +53,20 @@ function runSim(form) {
 	//with apropriate width and height
 	d3.select('body').selectAll('svg').remove();
 	var svg = d3.select('body').append('svg')
-	    .attr('w', w)
-	    .attr('h', h);
+	    .attr('width', w)
+	    .attr('height', h);
 
 	//Define X axis
 	var xAxis = d3.svg.axis()
 					  .scale(xScale)
 					  .orient("bottom")
+					  .ticks(1);
 
 	//Define Y axis
 	var yAxis = d3.svg.axis()
 					  .scale(yScale)
 					  .orient("left")
-					  .ticks(5);
+					  .ticks(3);
 
 	//Create X axis
 	svg.append("g")
@@ -127,7 +128,7 @@ function drawPlot(cashArr,svg,line){
         //Documentation about transitions here:
         //https://github.com/mbostock/d3/wiki/Transitions
         .transition()
-        .duration(1000)
+        .duration(1500)
         .attrTween('d', pathTween);
     //Called by attrTween during the path transition animation
 	function pathTween() {
@@ -149,7 +150,7 @@ function drawAve(aveArr,svg,line){
     var path = svg.append('path')
         .attr('class', 'ave')
         .transition()
-        .duration(1000)
+        .duration(1500)
         .attrTween('d', pathTween);
     //Called by attrTween during the path transition animation
 	function pathTween() {
