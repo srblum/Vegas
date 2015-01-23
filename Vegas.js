@@ -3,7 +3,7 @@
 function runSim(form) {
     var startCash = Number(form.startCash.value);
     var betCash = Number(form.betCash.value);
-    var numPlays = 1000;
+    var numPlays = 100;
     var numNights = 300;
     var cashArrs=[];
     for(var i=0;i<numNights;i++){
@@ -12,7 +12,7 @@ function runSim(form) {
 
     //Store an average of all arrays of cashArr in aveArr
 	var aveArr=[];
-	for(var i=0;i<101;i++){
+	for(var i=0;i<numPlays+1;i++){
 		var ave=0;
 		for(var j=0;j<cashArrs.length;j++){
 			ave+=cashArrs[j][i];
@@ -108,7 +108,7 @@ function drawPath(cashArr,svg,line,pathClass){
     var path = svg.append('path')
         .attr('class', pathClass)
         .transition()
-        .duration((Math.random()+2)*1000)
+        .duration(2000)
         .attrTween('d', pathTween);
 	function pathTween() {
 	    var interpolate = d3.scale.quantile()
