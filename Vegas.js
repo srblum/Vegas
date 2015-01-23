@@ -3,7 +3,7 @@
 function runSim(form) {
     var startCash = Number(form.startCash.value);
     var betCash = Number(form.betCash.value);
-    var numPlays = 100;
+    var numPlays = 1000;
     var numNights = 300;
     var cashArrs=[];
     for(var i=0;i<numNights;i++){
