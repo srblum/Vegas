@@ -108,7 +108,7 @@ function drawPath(cashArr,svg,line,pathClass){
     var path = svg.append('path')
         .attr('class', pathClass)
         .transition()
-        .duration(2000)
+        .duration((Math.random*1000)+2000)
         .attrTween('d', pathTween);
 	function pathTween() {
 	    var interpolate = d3.scale.quantile()
