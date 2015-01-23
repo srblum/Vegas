@@ -23,7 +23,7 @@ function runSim(form) {
 
 	//Specify the width, height, and margin of the svg element
 	var w = 600,
-	    h = 200;
+	    h = 300;
 	    padding = 50;
 
 	//maps the domain of the data (0,length-1)
@@ -52,7 +52,7 @@ function runSim(form) {
 	var xAxis = d3.svg.axis()
 					  .scale(xScale)
 					  .orient("bottom")
-					  .ticks(1);
+					  .ticks(0);
 	var yAxis = d3.svg.axis()
 					  .scale(yScale)
 					  .orient("left")
@@ -70,9 +70,9 @@ function runSim(form) {
 
 	//Draw all 1000 simulations and average
 	for(var i=0;i<cashArrs.length;i++){
-		drawPlot(cashArrs[i],svg,line);
+		drawPath(cashArrs[i],svg,line,'line');
 	}
-	drawAve(aveArr,svg,line);
+	drawPath(aveArr,svg,line,'ave');
 }
 
 
@@ -96,13 +96,13 @@ function simRoulette(startCash,betCash,numPlays){
 //Takes an array of cash values and plots them. Taken from here:
 //http://big-elephants.com/2014-06/unrolling-line-charts-d3js/
 //Documentation about transitions here: https://github.com/mbostock/d3/wiki/Transitions
-function drawPlot(cashArr,svg,line){
+function drawPath(cashArr,svg,line,pathClass){
 	var data = cashArr.map(function(d,i) {
         return [i, d];
     });
     //Seemingly unnecessary line omitted below: .attr('d', line(data[0]))
     var path = svg.append('path')
-        .attr('class', 'line')
+        .attr('class', pathClass)
         .transition()
         .duration((Math.random()+2)*1000)
         .attrTween('d', pathTween);
@@ -115,25 +115,3 @@ function drawPlot(cashArr,svg,line){
 	    };
 	}
 }
-
-//Identical to drawPlot except for adding an 'ave'
-//class to the path
-function drawAve(aveArr,svg,line){
-	var data = aveArr.map(function(d,i) {
-        return [i, d];
-    });
-    var path = svg.append('path')
-        .attr('class', 'ave')
-        .transition()
-        .duration(2900)
-        .attrTween('d', pathTween);
-	function pathTween() {
-	    var interpolate = d3.scale.quantile()
-	            .domain([0,1])
-	            .range(d3.range(1, data.length+1));
-	    return function(t) {
-	        return line(data.slice(0, interpolate(t)));
-	    };
-	}
-}
-
