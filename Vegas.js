@@ -82,11 +82,15 @@ function simRoulette(startCash,betCash,numPlays){
 	var cashArr=[startCash];
 	var curCash=startCash;
 	var winFrac=18/37;
+    var wagerCash;
 	for(var i=0;i<numPlays;i++){
 		if(curCash>0){
+            wagerCash = betCash; // wagerCash is a check to make sure we're betting max available cash, resets itself every loop
+            if(curCash < betCash)
+                wagerCash = curCash;
 			if(Math.random()<winFrac){
-				curCash+=betCash;
-			}else{curCash-=betCash;}
+				curCash+=wagerCash;
+			}else{curCash-=wagerCash;}
 		}else{}
 		cashArr[cashArr.length]=curCash;
 	}
