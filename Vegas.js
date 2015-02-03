@@ -43,8 +43,8 @@ function runSim(form) {
 	    .y(function(d) { return yScale(d[1]); });
 
 	//Recreate svg element
-	d3.select('body').selectAll('svg').remove();
-	var svg = d3.select('body').append('svg')
+	d3.select('#game').selectAll('svg').remove();
+	var svg = d3.select('#game').append('svg')
 	    .attr('width', w)
 	    .attr('height', h);
 
