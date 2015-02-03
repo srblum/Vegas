@@ -2,10 +2,10 @@ path {
     stroke: black;
     stroke-width: 2;
     fill: none;
-    opacity:0.02;
+    opacity:0.016;
 }
 .ave{
-	stroke: red;
+	stroke: steelblue;
     stroke-width: 2;
     fill: none;
     opacity:1;
