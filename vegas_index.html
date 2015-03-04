@@ -1,0 +1,113 @@
+<!---------------------------------------------
+GROUP MEMBERS: JASON OU, SEAN BLUM, Max Villet
+CLASS : CMPS 165
+        Data Programming for Visualization
+        Winter 2015
+INSTRUCTOR: Suresh K. Lodha
+----------------------------------------------->
+
+<!DOCTYPE>
+<html lang="en">
+    <head>
+        <!-- Meta Tag -->
+        <meta charset="utf-8">
+        
+        <!-- Tab Title -->
+        <title>A Thousand Nights in Vegas</title>
+        
+        <!-- CSS Stylesheet -->
+        <link rel="stylesheet" type="text/css" href="css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="css/vegas_stylesheet.css">
+        
+        <!-- D3.js Source -->
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script type= "text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+    </head>
+    
+    <body>
+        <!-- Title of our d3 project -->
+        <div class="maintitle">
+            <h1>A Thousand Nights in <strong>VEGAS</strong></h1>
+        </div>
+        
+        <!-- D3.js main code -->
+        <script type="text/javascript" src="js/vegas_javascript.js"></script>
+        
+        <div class="simcontainer">
+            <div class="optioncontainer">
+                <div id="gamecontainer">
+                    <h1 class="clickAppear">Games</h1>
+                    
+                    <div id="hiddengames" class="clickText">
+                        <FORM>
+                            <select id="gamelist" size="4">
+                                <option value="1">Baccarat</option>
+                                <option value="2">Roulette</option>
+                                <option value="3">Black Jack</option>
+                                <option value="4">Craps</option>
+                            </select>
+                        </FORM>
+                    </div>
+                </div>
+                
+                <div id="rulescontainer">
+                    <h1 class="clickAppear">Rules</h1>
+                    
+                    <div id="hiddenrules" class="clickText">
+                        <FORM NAME="myform">
+                        Starting cash:<INPUT NAME="startCash"><BR><BR>
+                        Bet amount:   <INPUT NAME="betCash"><BR><BR>
+                        <INPUT TYPE="button" Value="Start" onClick="runSim(this.form)">
+                        </FORM>
+                    </div>
+                </div>
+                
+                <div id="strategycontainer">
+                    <h1 class="clickAppear">Strategy</h1>
+                    
+                    <div id="hiddenstrategies" class="clickText">
+                        <FORM>
+                            <select id="stratlist" size="1">
+                                <option value="1">Optimal</option>
+                            </select>
+                        </FORM>
+                    </div>
+                </div>
+                
+                <div class="startbutton">
+                    <INPUT TYPE="button" Value="Simulate Game" onClick="runSim(this.form)">
+                </div>
+            </div>
+            
+            <div class="graphcontainer">
+            </div>
+        </div>
+        
+        <div class="advice">
+        </div>
+                            
+        <div class="additionalinfo">
+            <h3 class="clickAppear">Members</h3>
+            <div id="memberslist" class="clickText">
+                <p>Jason Ou</p>
+                <p>Sean Blum</p>
+                <p>Max Villet</p>
+            </div>
+            
+            <h3 class="clickAppear">Class Info</h3>
+            <div id="classinfolist" class="clickText">
+                <p>Class : CMPS 165</p>
+                <p>Class Name : Data Programming for Visualization</p>
+                <p>Winter 2015</p>
+                <p>Instructor : Suresh K. Lodha</p>
+            </div>
+            
+            <h3 class="clickAppear">Resources</h3>
+            <div id="resourceslist" class="clickText">
+                <p>Resource #1</p>
+                <p>Resource #2</p>
+                <p>Resource #3</p>
+            </div>
+        </div>
+    </body>
+</html>
