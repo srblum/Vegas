@@ -1,0 +1,140 @@
+/* CSS for Body */
+body {
+
+}
+
+/* CSS for the index title "A Thousand Nights in Vegas */
+.maintitle {
+    width: 1800px;
+    height: 75px;
+    text-align: center;
+    margin: 0 auto;
+    font-size: 25px;
+
+}
+
+.maintitle strong {
+    color: red;
+    background-color: #ddd;
+    border:4px dashed yellow;
+    border-radius: 25px;
+    padding: 10px;
+}
+
+/* CSS for simulation container */
+.simcontainer {
+    height: 800px;
+    width: 1800px;
+    margin: 0 auto;
+    border: 2px dashed black;
+}
+
+/* CSS for user game options */
+.optioncontainer {
+    height: 800px;
+    width: 540px;
+    float: left;
+    border: 2px dashed black;
+    margin: 0px;
+}
+
+#gamecontainer {
+    width: 100%;
+    text-align: center;
+    border-top: 2px solid black;
+    border-bottom:2px solid black;
+}
+
+#hiddengames {
+    margin: 0px;
+}
+
+#rulescontainer {
+    width: 100%;
+    text-align: center;
+    border-bottom:2px solid black;
+}
+
+#strategycontainer {
+    width: 100%;
+    text-align: center;
+    border-bottom:2px solid black;
+}
+
+.startbutton {
+    text-align: center;
+}
+
+.startbutton INPUT {
+    margin-top: 20px;
+}
+
+.clickAppear {
+	cursor: pointer;
+	-webkit-transition: all 0.7s;
+    -moz-transition: all 0.7s;
+    -ms-transition: all 0.7s;
+    -o-transition: all 0.7s;
+    transition: all 0.7s;
+}
+
+.clickAppear:hover {
+	background-color: black;
+	color: yellow;
+	-webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+/* CSS for the graph */
+.graphcontainer {
+    height: 800px;
+    width: 1252px;
+    float: right;
+    border: 2px dashed black;
+}
+
+path {
+    stroke: black;
+    stroke-width: 2;
+    fill: none;
+    opacity:0.1;
+    shape-rendering: crispEdges;
+}
+
+.ave{
+	stroke: red;
+    stroke-width: 2;
+    fill: none;
+    opacity:1;
+}
+
+.axis text {
+	font-family: sans-serif;
+	font-size: 11px;
+}
+
+.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+/* CSS for advice */
+.advice {
+    width: 1800px;
+    height: 200px;
+    margin: 0 auto;
+    border: 2px dashed black;
+}
+
+/* CSS for additional info */
+.additionalinfo {
+    width: 1800px;
+    height: 200px;
+    border: 2px dashed black;
+    margin: 0 auto;
+    text-align: center;
+}
