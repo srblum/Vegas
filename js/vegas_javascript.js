@@ -33,8 +33,8 @@ function runSim(form) {
 	}
 
 	//Specify the width, height, and margin of the svg element
-	var w = 1000,
-	    h = 600;
+	var w = 1200,
+	    h = 800;
 	    padding = 160;
 
 	//maps the domain of the data (0,length-1)
@@ -63,7 +63,7 @@ function runSim(form) {
 	var xAxis = d3.svg.axis()
 					  .scale(xScale)
 					  .orient("bottom")
-					  .ticks(0);
+					  .ticks(5);
 	var yAxis = d3.svg.axis()
 					  .scale(yScale)
 					  .orient("left")
@@ -78,6 +78,13 @@ function runSim(form) {
 		.attr("class", "axis")
 		.attr("transform", "translate(" + padding + ",0)")
 		.call(yAxis);
+    
+    // Creates xAxis label
+    svg.append("text")
+        .attr("transform", "translate(" + (w/2) + " ," + (h-100) + ")")
+        .style("text-anchor", "middle")
+        .style("font-size", "20px")
+        .text("Number of Plays");
 
 	//Draw all 1000 simulations and average
 	for(var i=0;i<cashArrs.length;i++){
