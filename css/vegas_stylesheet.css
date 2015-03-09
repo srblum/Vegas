@@ -1,6 +1,6 @@
 /* CSS for Body */
 body {
-
+	font-family: sans-serif;
 }
 
 /* CSS for the index title "A Thousand Nights in Vegas */
@@ -26,7 +26,6 @@ body {
     height: 800px;
     width: 1800px;
     margin: 0 auto;
-    border: 2px dashed black;
 }
 
 /* CSS for user game options */
@@ -34,15 +33,14 @@ body {
     height: 800px;
     width: 540px;
     float: left;
-    border: 2px dashed black;
+    border: 2px solid black;
     margin: 0px;
 }
 
 #gamecontainer {
     width: 100%;
     text-align: center;
-    border-top: 2px solid black;
-    border-bottom:2px solid black;
+    border-bottom: 2px solid black;
 }
 
 #hiddengames {
@@ -52,13 +50,13 @@ body {
 #rulescontainer {
     width: 100%;
     text-align: center;
-    border-bottom:2px solid black;
+    border-bottom: 2px solid black;
 }
 
 #strategycontainer {
     width: 100%;
     text-align: center;
-    border-bottom:2px solid black;
+    border-bottom: 2px solid black;
 }
 
 .startbutton {
@@ -93,7 +91,6 @@ body {
     height: 800px;
     width: 1252px;
     float: right;
-    border: 2px dashed black;
 }
 
 path {
@@ -112,8 +109,7 @@ path {
 }
 
 .axis text {
-	font-family: sans-serif;
-	font-size: 11px;
+	font-size: 15px;
 }
 
 .axis line {
@@ -124,17 +120,15 @@ path {
 
 /* CSS for advice */
 .advice {
-    width: 1800px;
-    height: 200px;
+    width: 0px;
+    height: 0px;
     margin: 0 auto;
-    border: 2px dashed black;
 }
 
 /* CSS for additional info */
 .additionalinfo {
     width: 1800px;
     height: 200px;
-    border: 2px dashed black;
     margin: 0 auto;
-    text-align: center;
+    text-align: left;
 }
