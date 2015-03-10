@@ -1,3 +1,123 @@
+window.onload = function() {
+    var startCash = 100;
+    var betCash = 10;
+    var numPlays = 100;
+    var numNights = 300;
+    var cashArrs=[];
+    for(var i=0;i<numNights;i++){
+        cashArrs[cashArrs.length]=simRoulette(startCash,betCash,numPlays);
+    }
+
+    //Store an average of all arrays of cashArr in aveArr
+    var aveArr=[];
+    for(var i=0;i<numPlays+1;i++){
+        var ave=0;
+        for(var j=0;j<cashArrs.length;j++){
+            ave+=cashArrs[j][i];
+        }
+        ave/=cashArrs.length;
+        aveArr[aveArr.length]=ave;
+    }
+
+    //Specify the width, height, and margin of the svg element
+    var w = 1200,
+        h = 800;
+        padding = 160;
+
+    //maps the domain of the data (0,length-1)
+    //onto the range of x screen coordinates (which correspond
+    //to the width of the svg element.)
+    var xScale = d3.scale.linear()
+        .domain([0, numPlays])
+        .range([padding, w - padding * 2]);
+
+    var yScale = d3.scale.linear()
+        .domain([0, d3.max(cashArrs,function(x){return d3.max(x)})])
+        .range([h - padding, padding]);
+
+    //d3.svg.line is a path generator (both object and function), containing scale information
+    var line = d3.svg.line()
+        .x(function(d) { return xScale(d[0]); })
+        .y(function(d) { return yScale(d[1]); });
+
+    //Recreate svg element
+    d3.select('.graphcontainer').selectAll('svg').remove();
+    var svg = d3.select('.graphcontainer').append('svg')
+        .attr('width', w)
+        .attr('height', h);
+
+    //Define X and Y axis
+    var xAxis = d3.svg.axis()
+                      .scale(xScale)
+                      .orient("bottom")
+                      .ticks(5);
+    var yAxis = d3.svg.axis()
+                      .scale(yScale)
+                      .orient("left")
+                      .ticks(7);
+    // Creates functions for the X and Y Grid to be created
+    function gridXaxis() {
+        return d3.svg.axis()
+                .scale(xScale)
+                .orient("bottom")
+                .ticks(10)
+    }
+    function gridYaxis() {
+        return d3.svg.axis()
+                .scale(yScale)
+                .orient("left")
+                .ticks(10)
+    }
+
+    // Draw xAxis grid
+    svg.append("g")
+        .attr("class", "grid")
+        .attr("transform", "translate(0,640)")
+        .call(gridXaxis()
+            .tickSize(-500, 0, 0)
+            .tickFormat("")
+        )
+
+    // Draw yAxis grid
+    svg.append("g")
+        .attr("class", "grid")
+        .attr("transform", "translate(160,0)")
+        .call(gridYaxis()
+            .tickSize(-740, 0, 0)
+            .tickFormat("")
+        )
+
+    //Create X and Y axis
+    svg.append("g")
+        .attr("class", "axis")
+        .attr("transform", "translate(0," + (h - padding) + ")")
+        .call(xAxis);
+    svg.append("g")
+        .attr("class", "axis")
+        .attr("transform", "translate(" + padding + ",0)")
+        .call(yAxis)
+        .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("x", -400)
+        .attr("dy", "-3em")
+        .style("font-size", "20px")
+        .style("text-anchor", "middle") 
+        .text("Value in Dollars ($)");
+
+    // Creates xAxis label
+    svg.append("text")
+        .attr("transform", "translate(" + (w/2 - 100) + " ," + (h-100) + ")")
+        .style("text-anchor", "middle")
+        .style("font-size", "20px")
+        .text("Number of Plays");
+
+    //Draw all 1000 simulations and average
+    for(var i=0;i<cashArrs.length;i++){
+        drawPath(cashArrs[i],svg,line,'line');
+    }
+    drawPath(aveArr,svg,line,'ave');
+};
+
 /* When Games, Rules, or Strategy gets clicked on, text appears or disappears */
 $(document).ready(function() {
 	
@@ -119,7 +239,7 @@ function runSim(form) {
     
     // Creates xAxis label
     svg.append("text")
-        .attr("transform", "translate(" + (w/2) + " ," + (h-100) + ")")
+        .attr("transform", "translate(" + (w/2 - 100) + " ," + (h-100) + ")")
         .style("text-anchor", "middle")
         .style("font-size", "20px")
         .text("Number of Plays");
