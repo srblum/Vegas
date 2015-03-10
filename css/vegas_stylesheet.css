@@ -15,10 +15,10 @@ body {
 
 .maintitle strong {
     color: red;
-    background-color: #ddd;
-    border:4px dashed yellow;
     border-radius: 25px;
     padding: 10px;
+    border:1px dashed #333;
+    background-color: #eee;
 }
 
 /* CSS for simulation container */
@@ -30,17 +30,19 @@ body {
 
 /* CSS for user game options */
 .optioncontainer {
-    height: 800px;
-    width: 540px;
+    height: 798px;
+    width: 542px;
     float: left;
-    border: 2px solid black;
     margin: 0px;
+    border:1px dashed #333;
+	background-color:#eee;
+    font-size: 14px;
 }
 
 #gamecontainer {
     width: 100%;
     text-align: center;
-    border-bottom: 2px solid black;
+    border-bottom: 1px dashed #333;
 }
 
 #hiddengames {
@@ -50,13 +52,13 @@ body {
 #rulescontainer {
     width: 100%;
     text-align: center;
-    border-bottom: 2px solid black;
+    border-bottom: 1px dashed #333;
 }
 
 #strategycontainer {
     width: 100%;
     text-align: center;
-    border-bottom: 2px solid black;
+    border-bottom: 1px dashed #333;
 }
 
 .startbutton {
@@ -77,8 +79,8 @@ body {
 }
 
 .clickAppear:hover {
-	background-color: black;
-	color: yellow;
+	background-color: #333;
+	color: #eee;
 	-webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
     -ms-transition: all 0.5s;
@@ -88,9 +90,11 @@ body {
 
 /* CSS for the graph */
 .graphcontainer {
-    height: 800px;
-    width: 1252px;
+    height: 798px;
+    width: 1254px;
     float: right;
+    border:1px dashed #333;
+	background-color:#eee;
 }
 
 path {
@@ -118,17 +122,44 @@ path {
     shape-rendering: crispEdges;
 }
 
-/* CSS for advice */
-.advice {
-    width: 0px;
-    height: 0px;
-    margin: 0 auto;
+.grid .tick {
+    stroke: #333;
+    stroke-opacity: 0.4;
+    shape-rendering: crispEdges;
+    stroke-width: 1;
+}
+
+.grid path {
+    stroke-width: 1;
+    stroke: none;
 }
 
 /* CSS for additional info */
 .additionalinfo {
-    width: 1800px;
+    width: 1798px;
     height: 200px;
     margin: 0 auto;
     text-align: left;
+    border:1px dashed #333;
+	background-color:#eee;
+    margin-bottom: 30px;
+}
+
+#memberslist {
+    float: left;
+    width: 150px;
+    height: 100%;
+    padding-left: 40px;
+}
+
+#classinfolist {
+    float: left;
+    width: 410px;
+    height: 100%;
+}
+
+#resourceslist {
+    float: left;
+    width: 900px;
+    height: 100%;
 }

@@ -67,7 +67,38 @@ function runSim(form) {
 	var yAxis = d3.svg.axis()
 					  .scale(yScale)
 					  .orient("left")
-					  .ticks(3);
+					  .ticks(7);
+    // Creates functions for the X and Y Grid to be created
+    function gridXaxis() {
+        return d3.svg.axis()
+                .scale(xScale)
+                .orient("bottom")
+                .ticks(10)
+    }
+    function gridYaxis() {
+        return d3.svg.axis()
+                .scale(yScale)
+                .orient("left")
+                .ticks(10)
+    }
+    
+    // Draw xAxis grid
+    svg.append("g")
+        .attr("class", "grid")
+        .attr("transform", "translate(0,640)")
+        .call(gridXaxis()
+            .tickSize(-500, 0, 0)
+            .tickFormat("")
+        )
+
+    // Draw yAxis grid
+    svg.append("g")
+        .attr("class", "grid")
+        .attr("transform", "translate(160,0)")
+        .call(gridYaxis()
+            .tickSize(-740, 0, 0)
+            .tickFormat("")
+        )
 
 	//Create X and Y axis
 	svg.append("g")
@@ -77,7 +108,14 @@ function runSim(form) {
 	svg.append("g")
 		.attr("class", "axis")
 		.attr("transform", "translate(" + padding + ",0)")
-		.call(yAxis);
+		.call(yAxis)
+        .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("x", -400)
+        .attr("dy", "-3em")
+        .style("font-size", "20px")
+        .style("text-anchor", "middle") 
+        .text("Value in Dollars ($)");
     
     // Creates xAxis label
     svg.append("text")
@@ -85,7 +123,7 @@ function runSim(form) {
         .style("text-anchor", "middle")
         .style("font-size", "20px")
         .text("Number of Plays");
-
+    
 	//Draw all 1000 simulations and average
 	for(var i=0;i<cashArrs.length;i++){
 		drawPath(cashArrs[i],svg,line,'line');
