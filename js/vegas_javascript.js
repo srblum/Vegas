@@ -110,6 +110,46 @@ window.onload = function() {
         .style("text-anchor", "middle")
         .style("font-size", "20px")
         .text("Number of Plays");
+    
+    //Creates the legend
+    svg.append("rect")
+        .attr("x", 160)
+        .attr("y", 105)
+        .attr("width", w-475)
+        .attr("height", 30)
+        .attr("fill", "#ddd")
+        .style("stroke-size", "1px");   
+    svg.append("circle")
+        .attr("r", 6)
+        .attr("cx", 180)
+        .attr("cy", 120)
+        .style("fill", "Red");
+    svg.append("circle")
+        .attr("r", 6)
+        .attr("cx", 330)
+        .attr("cy", 120)
+        .style("fill", "Black");
+    svg.append("text")
+        .attr("class", "label1")
+        .attr("x", 300)
+        .attr("y", 125)
+        .style("text-anchor", "end")
+        .text("Average Cash");
+    svg.append("text")
+        .attr("class", "label2")
+        .attr("x", 450)
+        .attr("y", 125)
+        .style("text-anchor", "end")
+        .text("Random Plays");
+    
+    //Creates Title
+    svg.append("text")
+        .attr("class", "title1")
+        .attr("x", w/2 + 70)
+        .attr("y", 60)
+        .style("text-anchor", "end")
+        .style("font-size", "30px")
+        .text("Fixed Graph for 100 Plays");
 
     //Draw all 1000 simulations and average
     for(var i=0;i<cashArrs.length;i++){
@@ -244,6 +284,46 @@ function runSim(form) {
         .style("font-size", "20px")
         .text("Number of Plays");
     
+    //Creates the legend
+    svg.append("rect")
+        .attr("x", 160)
+        .attr("y", 105)
+        .attr("width", w-475)
+        .attr("height", 30)
+        .attr("fill", "#ddd")
+        .style("stroke-size", "1px");   
+    svg.append("circle")
+        .attr("r", 6)
+        .attr("cx", 180)
+        .attr("cy", 120)
+        .style("fill", "Red");
+    svg.append("circle")
+        .attr("r", 6)
+        .attr("cx", 330)
+        .attr("cy", 120)
+        .style("fill", "Black");
+    svg.append("text")
+        .attr("class", "label1")
+        .attr("x", 300)
+        .attr("y", 125)
+        .style("text-anchor", "end")
+        .text("Average Cash");
+    svg.append("text")
+        .attr("class", "label2")
+        .attr("x", 450)
+        .attr("y", 125)
+        .style("text-anchor", "end")
+        .text("Random Plays");
+ 
+    //Creates Title
+    svg.append("text")
+        .attr("class", "title1")
+        .attr("x", w/2 + 70)
+        .attr("y", 60)
+        .style("text-anchor", "end")
+        .style("font-size", "30px")
+        .text("Game Graph for 100 Plays");    
+
 	//Draw all 1000 simulations and average
 	for(var i=0;i<cashArrs.length;i++){
 		drawPath(cashArrs[i],svg,line,'line');
