@@ -1,3 +1,6 @@
+var gameName = "Game";
+var winFrac = 1/2;
+
 window.onload = function() {
     var startCash = 100;
     var betCash = 10;
@@ -165,23 +168,46 @@ window.onload = function() {
 
 /* When Games, Rules, or Strategy gets clicked on, text appears or disappears */
 $(document).ready(function() {
+	
+	$(".clickText").hide();
+	
+	$(".clickAppear").click(function() {
+		$(this).next().slideToggle(300);
+	});
+	
+    $(".game1").click(function() {
+        gameName = "Baccarat";
+        winFrac = 45/100;
+	});
     
-    $(".clickText").hide();
+    $(".game2").click(function() {
+        gameName = "Roulette";
+        winFrac = 48/100;
+	});
     
-    $(".clickAppear").click(function() {
-        $(this).next().slideToggle(300);
-    });
+    $(".game3").click(function() {
+        gameName = "Black Jack";
+        winFrac = 43/100;
+	});
     
-    $(".game").click(function() {
-        
-    });
+    $(".game4").click(function() {
+        gameName = "Craps";
+        winFrac = 49/100;
+	});
 });
 
 //The main function of Vegas.js
 //Called when "start" button is clicked
 function runSim(form) {
+    if(gameName == "Game") {
+        document.getElementById("startText").style.color = "red";
+        return;
+    }
+    
+    document.getElementById("startText").style.color = "black";
     var startCash = Number(form.startCash.value);
     var betCash = Number(form.betCash.value);
+    document.getElementById("startText").innerHTML = "You started with $" + startCash + ". Each game you decided to bet $" + betCash + ". On the graph to the right, the black lines represents a thousand simulation of possible outcomes over 100 game plays. The red line is your average cash over time.";
     var numPlays = 100;
     var numNights = 300;
     var cashArrs=[];
@@ -330,7 +356,7 @@ function runSim(form) {
         .attr("y", 60)
         .style("text-anchor", "end")
         .style("font-size", "30px")
-        .text("Game Graph for 100 Plays");    
+        .text(gameName + " Graph for 100 Plays");    
 
     //Draw all 1000 simulations and average
     for(var i=0;i<cashArrs.length;i++){
@@ -348,9 +374,10 @@ function runSim(form) {
 //Simulates a single night of roulette (100 spins)
 //Returns an array of 101 cash values
 function simRoulette(startCash,betCash,numPlays){
+	var cashArr=[startCash];
+	var curCash=startCash;
     var cashArr=[startCash];
     var curCash=startCash;
-    var winFrac=18/37;
     var wagerCash;
     for(var i=0;i<numPlays;i++){
         if(curCash>0){
