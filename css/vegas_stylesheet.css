@@ -1,6 +1,6 @@
 /* CSS for Body */
 body {
-
+    font-family: sans-serif;
 }
 
 /* CSS for the index title "A Thousand Nights in Vegas */
@@ -15,10 +15,10 @@ body {
 
 .maintitle strong {
     color: red;
-    background-color: #ddd;
-    border:4px dashed yellow;
     border-radius: 25px;
     padding: 10px;
+    border:1px dashed #333;
+    background-color: #eee;
 }
 
 /* CSS for simulation container */
@@ -26,23 +26,42 @@ body {
     height: 800px;
     width: 1800px;
     margin: 0 auto;
-    border: 2px dashed black;
 }
 
 /* CSS for user game options */
 .optioncontainer {
-    height: 800px;
-    width: 540px;
+    height: 798px;
+    width: 542px;
     float: left;
-    border: 2px dashed black;
     margin: 0px;
+    border:1px dashed #333;
+    background-color:#eee;
+    font-size: 14px;
+}
+
+.tooltip {
+    width: 542px;
+    height: 280px;
+    border-bottom: 1px dashed #333;
+}
+
+.tooltipimg {
+    float: right;
+    height: 250px;
+    width: 200px;
+    margin-top: 30px;
+}
+
+.tooltiptext {
+    float: left;
+    height:  280px;
+    width: 342px;
 }
 
 #gamecontainer {
     width: 100%;
     text-align: center;
-    border-top: 2px solid black;
-    border-bottom:2px solid black;
+    border-bottom: 1px dashed #333;
 }
 
 #hiddengames {
@@ -52,13 +71,13 @@ body {
 #rulescontainer {
     width: 100%;
     text-align: center;
-    border-bottom:2px solid black;
+    border-bottom: 1px dashed #333;
 }
 
 #strategycontainer {
     width: 100%;
     text-align: center;
-    border-bottom:2px solid black;
+    border-bottom: 1px dashed #333;
 }
 
 .startbutton {
@@ -70,8 +89,8 @@ body {
 }
 
 .clickAppear {
-	cursor: pointer;
-	-webkit-transition: all 0.7s;
+    cursor: pointer;
+    -webkit-transition: all 0.7s;
     -moz-transition: all 0.7s;
     -ms-transition: all 0.7s;
     -o-transition: all 0.7s;
@@ -79,9 +98,9 @@ body {
 }
 
 .clickAppear:hover {
-	background-color: black;
-	color: yellow;
-	-webkit-transition: all 0.5s;
+    background-color: #333;
+    color: #eee;
+    -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
     -ms-transition: all 0.5s;
     -o-transition: all 0.5s;
@@ -90,10 +109,11 @@ body {
 
 /* CSS for the graph */
 .graphcontainer {
-    height: 800px;
-    width: 1252px;
+    height: 798px;
+    width: 1254px;
     float: right;
-    border: 2px dashed black;
+    border:1px dashed #333;
+    background-color:#eee;
 }
 
 path {
@@ -105,15 +125,14 @@ path {
 }
 
 .ave{
-	stroke: red;
+    stroke: red;
     stroke-width: 2;
     fill: none;
     opacity:1;
 }
 
 .axis text {
-	font-family: sans-serif;
-	font-size: 11px;
+    font-size: 15px;
 }
 
 .axis line {
@@ -122,19 +141,44 @@ path {
     shape-rendering: crispEdges;
 }
 
-/* CSS for advice */
-.advice {
-    width: 1800px;
-    height: 200px;
-    margin: 0 auto;
-    border: 2px dashed black;
+.grid .tick {
+    stroke: #333;
+    stroke-opacity: 0.4;
+    shape-rendering: crispEdges;
+    stroke-width: 1;
+}
+
+.grid path {
+    stroke-width: 1;
+    stroke: none;
 }
 
 /* CSS for additional info */
 .additionalinfo {
-    width: 1800px;
+    width: 1798px;
     height: 200px;
-    border: 2px dashed black;
     margin: 0 auto;
-    text-align: center;
+    text-align: left;
+    border:1px dashed #333;
+    background-color:#eee;
+    margin-bottom: 30px;
+}
+
+#memberslist {
+    float: left;
+    width: 150px;
+    height: 100%;
+    padding-left: 40px;
+}
+
+#classinfolist {
+    float: left;
+    width: 410px;
+    height: 100%;
+}
+
+#resourceslist {
+    float: left;
+    width: 900px;
+    height: 100%;
 }

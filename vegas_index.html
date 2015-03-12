@@ -5,7 +5,6 @@ CLASS : CMPS 165
         Winter 2015
 INSTRUCTOR: Suresh K. Lodha
 ----------------------------------------------->
-
 <!DOCTYPE>
 <html lang="en">
     <head>
@@ -36,15 +35,24 @@ INSTRUCTOR: Suresh K. Lodha
         <div class="simcontainer">
             <div class="optioncontainer">
                 <div id="gamecontainer">
+                    <div class="tooltip">
+                        <div class="tooltipimg">
+                            <img src="images/poker_cartoon.png" alt="Poker Dealer" height="250" width="250">
+                        </div>
+                        <div class="tooltiptext">
+                            <h1>Welcome to A Thousand Nights in <span style="color:red">Vegas</span>.</h1>
+                            <h2>To begin, please start by choosing a down game below.</h2>
+                        </div>
+                    </div>
                     <h1 class="clickAppear">Games</h1>
                     
                     <div id="hiddengames" class="clickText">
                         <FORM>
                             <select id="gamelist" size="4">
-                                <option value="1">Baccarat</option>
-                                <option value="2">Roulette</option>
-                                <option value="3">Black Jack</option>
-                                <option value="4">Craps</option>
+                                <option class="game" value="1">Baccarat</option>
+                                <option class="game" value="2">Roulette</option>
+                                <option class="game" value="3">Black Jack</option>
+                                <option class="game" value="4">Craps</option>
                             </select>
                         </FORM>
                     </div>
@@ -82,35 +90,32 @@ INSTRUCTOR: Suresh K. Lodha
             <div class="graphcontainer">
             </div>
         </div>
-        
-        <div class="advice">
-        </div>
                             
-        <div class="additionalinfo">
-            <h3 class="clickAppear">Members</h3>
-            <div id="memberslist" class="clickText">
-                <p>Jason Ou</p>
-                <p>Sean Blum</p>
-                <p>Max Villet</p>
+        <div class="additionalinfo" style="list-style: none;">
+            <div id="memberslist">
+                <u><h3>Members</h3></u>
+                <li>Jason Ou</li>
+                <li>Sean Blum</li>
+                <li>Max Villet</li>
             </div>
             
-            <h3 class="clickAppear">Class Info</h3>
-            <div id="classinfolist" class="clickText">
-                <p>Class : CMPS 165</p>
-                <p>Class Name : Data Programming for Visualization</p>
-                <p>Winter 2015</p>
-                <p>Instructor : Suresh K. Lodha</p>
+            <div id="classinfolist" style="list-style: none;">
+                <u><h3>Class Info</h3></u>
+                <li>Class : CMPS 165</li>
+                <li>Class Name : Data Programming for Visualization</li>
+                <li>Winter 2015</li>
+                <li>Instructor : Suresh K. Lodha</li>
             </div>
             
-            <h3 class="clickAppear">Resources</h3>
-            <div id="resourceslist" class="clickText">
-                <ul>
-                  <li>D3 API Reference</li>
-                  <li>Interactive Data Visualization for the Web</li>
-                  <li><a href="http://www.w3schools.com/" target="_blank">w3schools</a></li>
-                  <li><a href="http://bl.ocks.org/mbostock/1166403" target = "_blank"> Axes Component Example by Mike Bostock</a></li>
-                  <li><a href="http://big-elephants.com/2014-06/unrolling-line-charts-d3js/" target = "_blank:">Notes on Animating Line Charts with D3 </a></li>
-                </ul>
+            <div id="resourceslist" style="list-style: none;">
+                <u><h3>Resources</h3></u>
+                <li>D3 API Reference, Interactive Data Visualization for the Web</li>
+                <li><a href="http://www.w3schools.com/" target="_blank">w3schools</a></li>
+                <li><a href="http://bost.ocks.org/mike/bar/3/" target = "_blank"> Bar Graph Example by Mike Bostock</a></li>
+                <li><a href="http://bl.ocks.org/mbostock/1166403" target = "_blank"> Axes Component Example by Mike Bostock</a></li>
+                <li><a href="http://big-elephants.com/2014-06/unrolling-line-charts-d3js/" target = "_blank:">Notes on Animating Line Charts with D3 </a></li>
+                <li><a href="http://stackoverflow.com/questions/15580300/proper-way-to-draw-gridlines" target = "_blank:">Comment from user "arete" in stackoverflow</a></li>
+                <li><a href="https://necolas.github.com/normalize.css/3.0.2/normalize.css" target = "_blank:">normalize.css</a></li>
             </div>
         </div>
     </body>
