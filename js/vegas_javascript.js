@@ -167,6 +167,9 @@ $(document).ready(function() {
 		$(this).next().slideToggle(300);
 	});
 	
+    $(".game").click(function() {
+        
+	});
 });
 
 //The main function of Vegas.js
