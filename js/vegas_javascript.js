@@ -150,10 +150,15 @@ window.onload = function() {
         .style("text-anchor", "end")
         .style("font-size", "30px")
         .text("Fixed Graph for 100 Plays");
-
+    console.log(cashArrs[1][100])
     //Draw all 1000 simulations and average
     for(var i=0;i<cashArrs.length;i++){
-        drawPath(cashArrs[i],svg,line,'line');
+        if (cashArrs[i][100]==0){
+            drawPath(cashArrs[i],svg,line,'brokeLine')
+        }
+        else{
+            drawPath(cashArrs[i],svg,line,'line');
+        }
     }
     drawPath(aveArr,svg,line,'ave');
 };
@@ -329,7 +334,12 @@ function runSim(form) {
 
     //Draw all 1000 simulations and average
     for(var i=0;i<cashArrs.length;i++){
-        drawPath(cashArrs[i],svg,line,'line');
+        if (cashArrs[i][100]==0){
+            drawPath(cashArrs[i],svg,line,'brokeLine')
+        }
+        else{
+            drawPath(cashArrs[i],svg,line,'line');
+        }
     }
     drawPath(aveArr,svg,line,'ave');
 }
@@ -365,6 +375,7 @@ function drawPath(cashArr,svg,line,pathClass){
     });
     var path = svg.append('path')
         .attr('class', pathClass)
+        .on("mouseover",function(){this.parentNode.appendChild(this);})
         .transition()
         .duration(pathClass=='ave'?3000:(Math.random()*1000)+2000)
         .attrTween('d', pathTween);
