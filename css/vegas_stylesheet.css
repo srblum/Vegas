@@ -1,6 +1,6 @@
 /* CSS for Body */
 body {
-	font-family: sans-serif;
+    font-family: sans-serif;
 }
 
 /* CSS for the index title "A Thousand Nights in Vegas */
@@ -35,7 +35,7 @@ body {
     float: left;
     margin: 0px;
     border:1px dashed #333;
-	background-color:#eee;
+    background-color:#eee;
     font-size: 14px;
 }
 
@@ -89,8 +89,8 @@ body {
 }
 
 .clickAppear {
-	cursor: pointer;
-	-webkit-transition: all 0.7s;
+    cursor: pointer;
+    -webkit-transition: all 0.7s;
     -moz-transition: all 0.7s;
     -ms-transition: all 0.7s;
     -o-transition: all 0.7s;
@@ -98,9 +98,9 @@ body {
 }
 
 .clickAppear:hover {
-	background-color: #333;
-	color: #eee;
-	-webkit-transition: all 0.5s;
+    background-color: #333;
+    color: #eee;
+    -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
     -ms-transition: all 0.5s;
     -o-transition: all 0.5s;
@@ -113,26 +113,38 @@ body {
     width: 1254px;
     float: right;
     border:1px dashed #333;
-	background-color:#eee;
+    background-color:#eee;
 }
 
-path {
-    stroke: black;
+path{
+    stroke: grey;
     stroke-width: 2;
     fill: none;
-    opacity:0.1;
+    opacity:0.2;
     shape-rendering: crispEdges;
 }
 
+.brokeLine{
+    stroke:darkred;
+    stroke-width: 2;
+    fill: none;
+    opacity:0.2;
+}
+
+path:hover{
+    opacity:1;
+    stroke-width:4;
+}
+
 .ave{
-	stroke: red;
+    stroke: black;
     stroke-width: 2;
     fill: none;
     opacity:1;
 }
 
 .axis text {
-	font-size: 15px;
+    font-size: 15px;
 }
 
 .axis line {
@@ -160,7 +172,7 @@ path {
     margin: 0 auto;
     text-align: left;
     border:1px dashed #333;
-	background-color:#eee;
+    background-color:#eee;
     margin-bottom: 30px;
 }
 

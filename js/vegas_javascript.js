@@ -153,10 +153,15 @@ window.onload = function() {
         .style("text-anchor", "end")
         .style("font-size", "30px")
         .text("Fixed Graph for 100 Plays");
-
+    console.log(cashArrs[1][100])
     //Draw all 1000 simulations and average
     for(var i=0;i<cashArrs.length;i++){
-        drawPath(cashArrs[i],svg,line,'line');
+        if (cashArrs[i][100]==0){
+            drawPath(cashArrs[i],svg,line,'brokeLine')
+        }
+        else{
+            drawPath(cashArrs[i],svg,line,'line');
+        }
     }
     drawPath(aveArr,svg,line,'ave');
 };
@@ -207,56 +212,56 @@ function runSim(form) {
     var numNights = 300;
     var cashArrs=[];
     for(var i=0;i<numNights;i++){
-		cashArrs[cashArrs.length]=simRoulette(startCash,betCash,numPlays);
+        cashArrs[cashArrs.length]=simRoulette(startCash,betCash,numPlays);
     }
 
     //Store an average of all arrays of cashArr in aveArr
-	var aveArr=[];
-	for(var i=0;i<numPlays+1;i++){
-		var ave=0;
-		for(var j=0;j<cashArrs.length;j++){
-			ave+=cashArrs[j][i];
-		}
-		ave/=cashArrs.length;
-		aveArr[aveArr.length]=ave;
-	}
+    var aveArr=[];
+    for(var i=0;i<numPlays+1;i++){
+        var ave=0;
+        for(var j=0;j<cashArrs.length;j++){
+            ave+=cashArrs[j][i];
+        }
+        ave/=cashArrs.length;
+        aveArr[aveArr.length]=ave;
+    }
 
-	//Specify the width, height, and margin of the svg element
-	var w = 1200,
-	    h = 800;
-	    padding = 160;
+    //Specify the width, height, and margin of the svg element
+    var w = 1200,
+        h = 800;
+        padding = 160;
 
-	//maps the domain of the data (0,length-1)
-	//onto the range of x screen coordinates (which correspond
-	//to the width of the svg element.)
-	var xScale = d3.scale.linear()
-	    .domain([0, numPlays])
-	    .range([padding, w - padding * 2]);
+    //maps the domain of the data (0,length-1)
+    //onto the range of x screen coordinates (which correspond
+    //to the width of the svg element.)
+    var xScale = d3.scale.linear()
+        .domain([0, numPlays])
+        .range([padding, w - padding * 2]);
 
-	var yScale = d3.scale.linear()
-	    .domain([0, d3.max(cashArrs,function(x){return d3.max(x)})])
-	    .range([h - padding, padding]);
+    var yScale = d3.scale.linear()
+        .domain([0, d3.max(cashArrs,function(x){return d3.max(x)})])
+        .range([h - padding, padding]);
 
-	//d3.svg.line is a path generator (both object and function), containing scale information
-	var line = d3.svg.line()
-	    .x(function(d) { return xScale(d[0]); })
-	    .y(function(d) { return yScale(d[1]); });
+    //d3.svg.line is a path generator (both object and function), containing scale information
+    var line = d3.svg.line()
+        .x(function(d) { return xScale(d[0]); })
+        .y(function(d) { return yScale(d[1]); });
 
-	//Recreate svg element
-	d3.select('.graphcontainer').selectAll('svg').remove();
-	var svg = d3.select('.graphcontainer').append('svg')
-	    .attr('width', w)
-	    .attr('height', h);
+    //Recreate svg element
+    d3.select('.graphcontainer').selectAll('svg').remove();
+    var svg = d3.select('.graphcontainer').append('svg')
+        .attr('width', w)
+        .attr('height', h);
 
-	//Define X and Y axis
-	var xAxis = d3.svg.axis()
-					  .scale(xScale)
-					  .orient("bottom")
-					  .ticks(5);
-	var yAxis = d3.svg.axis()
-					  .scale(yScale)
-					  .orient("left")
-					  .ticks(7);
+    //Define X and Y axis
+    var xAxis = d3.svg.axis()
+                      .scale(xScale)
+                      .orient("bottom")
+                      .ticks(5);
+    var yAxis = d3.svg.axis()
+                      .scale(yScale)
+                      .orient("left")
+                      .ticks(7);
     // Creates functions for the X and Y Grid to be created
     function gridXaxis() {
         return d3.svg.axis()
@@ -289,15 +294,15 @@ function runSim(form) {
             .tickFormat("")
         )
 
-	//Create X and Y axis
-	svg.append("g")
-		.attr("class", "axis")
-		.attr("transform", "translate(0," + (h - padding) + ")")
-		.call(xAxis);
-	svg.append("g")
-		.attr("class", "axis")
-		.attr("transform", "translate(" + padding + ",0)")
-		.call(yAxis)
+    //Create X and Y axis
+    svg.append("g")
+        .attr("class", "axis")
+        .attr("transform", "translate(0," + (h - padding) + ")")
+        .call(xAxis);
+    svg.append("g")
+        .attr("class", "axis")
+        .attr("transform", "translate(" + padding + ",0)")
+        .call(yAxis)
         .append("text")
         .attr("transform", "rotate(-90)")
         .attr("x", -400)
@@ -353,11 +358,16 @@ function runSim(form) {
         .style("font-size", "30px")
         .text(gameName + " Graph for 100 Plays");    
 
-	//Draw all 1000 simulations and average
-	for(var i=0;i<cashArrs.length;i++){
-		drawPath(cashArrs[i],svg,line,'line');
-	}
-	drawPath(aveArr,svg,line,'ave');
+    //Draw all 1000 simulations and average
+    for(var i=0;i<cashArrs.length;i++){
+        if (cashArrs[i][100]==0){
+            drawPath(cashArrs[i],svg,line,'brokeLine')
+        }
+        else{
+            drawPath(cashArrs[i],svg,line,'line');
+        }
+    }
+    drawPath(aveArr,svg,line,'ave');
 }
 
 
@@ -366,39 +376,42 @@ function runSim(form) {
 function simRoulette(startCash,betCash,numPlays){
 	var cashArr=[startCash];
 	var curCash=startCash;
+    var cashArr=[startCash];
+    var curCash=startCash;
     var wagerCash;
-	for(var i=0;i<numPlays;i++){
-		if(curCash>0){
+    for(var i=0;i<numPlays;i++){
+        if(curCash>0){
             wagerCash = betCash; // wagerCash is a check to make sure we're betting max available cash, resets itself every loop
             if(curCash < betCash)
                 wagerCash = curCash;
-			if(Math.random()<winFrac){
-				curCash+=wagerCash;
-			}else{curCash-=wagerCash;}
-		}else{}
-		cashArr[cashArr.length]=curCash;
-	}
-	return cashArr
+            if(Math.random()<winFrac){
+                curCash+=wagerCash;
+            }else{curCash-=wagerCash;}
+        }else{}
+        cashArr[cashArr.length]=curCash;
+    }
+    return cashArr
 }
 
 //Takes an array of cash values and plots them. Taken from here:
 //http://big-elephants.com/2014-06/unrolling-line-charts-d3js/
 //Documentation about transitions here: https://github.com/mbostock/d3/wiki/Transitions
 function drawPath(cashArr,svg,line,pathClass){
-	var data = cashArr.map(function(d,i) {
+    var data = cashArr.map(function(d,i) {
         return [i, d];
     });
     var path = svg.append('path')
         .attr('class', pathClass)
+        .on("mouseover",function(){this.parentNode.appendChild(this);})
         .transition()
         .duration(pathClass=='ave'?3000:(Math.random()*1000)+2000)
         .attrTween('d', pathTween);
-	function pathTween() {
-	    var interpolate = d3.scale.quantile()
-	            .domain([0,1])
-	            .range(d3.range(1, data.length+1));
-	    return function(t) {
-	        return line(data.slice(0, interpolate(t)));
-	    };
-	}
+    function pathTween() {
+        var interpolate = d3.scale.quantile()
+                .domain([0,1])
+                .range(d3.range(1, data.length+1));
+        return function(t) {
+            return line(data.slice(0, interpolate(t)));
+        };
+    }
 }
