@@ -34,7 +34,7 @@ body {
     width: 542px;
     float: left;
     margin: 0px;
-    border:1px dashed #333;
+    border:1px solid #333;
     background-color:#eee;
     font-size: 14px;
 }
@@ -42,7 +42,7 @@ body {
 .tooltip {
     width: 542px;
     height: 280px;
-    border-bottom: 1px dashed #333;
+    border-bottom: 1px solid #333;
 }
 
 .tooltipimg {
@@ -61,7 +61,7 @@ body {
 #gamecontainer {
     width: 100%;
     text-align: center;
-    border-bottom: 1px dashed #333;
+    border-bottom: 1px solid #333;
 }
 
 #hiddengames {
@@ -71,13 +71,13 @@ body {
 #rulescontainer {
     width: 100%;
     text-align: center;
-    border-bottom: 1px dashed #333;
+    border-bottom: 1px solid #333;
 }
 
 #strategycontainer {
     width: 100%;
     text-align: center;
-    border-bottom: 1px dashed #333;
+    border-bottom: 1px solid #333;
 }
 
 .startbutton {
@@ -112,7 +112,7 @@ body {
     height: 798px;
     width: 1254px;
     float: right;
-    border:1px dashed #333;
+    border:1px solid #333;
     background-color:#eee;
 }
 
@@ -165,13 +165,19 @@ path:hover{
     stroke: none;
 }
 
+.histbar rect{
+    fill:lightgrey;
+    stroke:black;
+    stroke-width:2;
+}
+
 /* CSS for additional info */
 .additionalinfo {
     width: 1798px;
     height: 200px;
     margin: 0 auto;
     text-align: left;
-    border:1px dashed #333;
+    border:1px solid #333;
     background-color:#eee;
     margin-bottom: 30px;
 }

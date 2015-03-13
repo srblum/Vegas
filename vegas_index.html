@@ -33,6 +33,7 @@ INSTRUCTOR: Suresh K. Lodha
         <script type="text/javascript" src="js/vegas_javascript.js"></script>
         
         <div class="simcontainer">
+            <FORM NAME="myform">
             <div class="optioncontainer">
                 <div id="gamecontainer">
                     <div class="tooltip">
@@ -47,14 +48,12 @@ INSTRUCTOR: Suresh K. Lodha
                     <h1 class="clickAppear">Games</h1>
                     
                     <div id="hiddengames" class="clickText">
-                        <FORM>
                             <select id="gamelist" size="4">
                                 <option class="game1" value="1">Baccarat</option>
                                 <option class="game2" value="2">Roulette</option>
                                 <option class="game3" value="3">Black Jack</option>
                                 <option class="game4" value="4">Craps</option>
                             </select>
-                        </FORM>
                     </div>
                 </div>
                 
@@ -62,11 +61,8 @@ INSTRUCTOR: Suresh K. Lodha
                     <h1 class="clickAppear">Rules</h1>
                     
                     <div id="hiddenrules" class="clickText">
-                        <FORM NAME="myform">
                         Starting cash:<INPUT NAME="startCash"><BR><BR>
                         Bet amount:   <INPUT NAME="betCash"><BR><BR>
-                        <INPUT TYPE="button" Value="Start" onClick="runSim(this.form)">
-                        </FORM>
                     </div>
                 </div>
                 
@@ -74,11 +70,9 @@ INSTRUCTOR: Suresh K. Lodha
                     <h1 class="clickAppear">Strategy</h1>
                     
                     <div id="hiddenstrategies" class="clickText">
-                        <FORM>
                             <select id="stratlist" size="1">
                                 <option value="1">Optimal</option>
                             </select>
-                        </FORM>
                     </div>
                 </div>
                 
@@ -86,7 +80,7 @@ INSTRUCTOR: Suresh K. Lodha
                     <INPUT TYPE="button" Value="Simulate Game" onClick="runSim(this.form)">
                 </div>
             </div>
-            
+            </FORM>
             <div class="graphcontainer">
             </div>
         </div>
