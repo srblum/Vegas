@@ -42,15 +42,15 @@ $(document).ready(function() {
 //The main function of Vegas.js
 //Called when "start" button is clicked
 function runSim(form) {
-    // if(gameName == "Game") {
-    //     document.getElementById("startText").style.color = "red";
-    //     return;
-    // }
-    
-    document.getElementById("startText").style.color = "black";
     var startCash = Number(form.startCash.value);
     var betCash = Number(form.betCash.value);
+    if(gameName == "Game") {
+        document.getElementById("startText").style.color = "red";
+
+    }else{
+    document.getElementById("startText").style.color = "black";
     document.getElementById("startText").innerHTML = "You started with $" + startCash + ". Each game you decided to bet $" + betCash + ". On the graph to the right, the black lines represents a thousand simulation of possible outcomes over 100 game plays. The red line is your average cash over time.";
+    }
     var numPlays = 100;
     var numNights = 300;
     var cashArrs=[];
