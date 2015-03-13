@@ -10,7 +10,6 @@ body {
     text-align: center;
     margin: 0 auto;
     font-size: 25px;
-
 }
 
 .maintitle strong {
@@ -30,11 +29,10 @@ body {
 
 /* CSS for user game options */
 .optioncontainer {
-    height: 798px;
-    width: 542px;
+    height: 800px;
+    width: 544px;
     float: left;
     margin: 0px;
-    border:1px solid #333;
     background-color:#eee;
     font-size: 14px;
 }
@@ -42,7 +40,6 @@ body {
 .tooltip {
     width: 542px;
     height: 280px;
-    border-bottom: 1px solid #333;
 }
 
 .tooltipimg {
@@ -54,30 +51,27 @@ body {
 
 .tooltiptext {
     float: left;
-    height:  280px;
+    height: 280px;
     width: 342px;
 }
 
 #gamecontainer {
     width: 100%;
     text-align: center;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #eee;
 }
 
 #hiddengames {
-    margin: 0px;
 }
 
 #rulescontainer {
     width: 100%;
     text-align: center;
-    border-bottom: 1px solid #333;
 }
 
 #strategycontainer {
     width: 100%;
     text-align: center;
-    border-bottom: 1px solid #333;
 }
 
 .startbutton {
@@ -109,10 +103,9 @@ body {
 
 /* CSS for the graph */
 .graphcontainer {
-    height: 798px;
-    width: 1254px;
+    height: 800px;
+    width: 1256px;
     float: right;
-    border:1px solid #333;
     background-color:#eee;
 }
 
@@ -166,18 +159,31 @@ path:hover{
 }
 
 .histbar rect{
-    fill:lightgrey;
+    fill:#79b;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+.histbar rect:hover {
+    cursor: pointer;
     stroke:black;
-    stroke-width:2;
+    stroke-width:1;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
 }
 
 /* CSS for additional info */
 .additionalinfo {
-    width: 1798px;
+    width: 1800px;
     height: 200px;
     margin: 0 auto;
     text-align: left;
-    border:1px solid #333;
     background-color:#eee;
     margin-bottom: 30px;
 }
@@ -191,12 +197,18 @@ path:hover{
 
 #classinfolist {
     float: left;
-    width: 410px;
+    width: 390px;
+    height: 100%;
+}
+
+#filesubmitlist {
+    float: left;
+    width: 250px;
     height: 100%;
 }
 
 #resourceslist {
     float: left;
-    width: 900px;
+    width: 450px;
     height: 100%;
 }
