@@ -35,22 +35,24 @@ INSTRUCTOR: Suresh K. Lodha
         <div class="simcontainer">
             <FORM NAME="myform">
             <div class="optioncontainer">
-                <div id="gamecontainer">
-                    <div class="tooltip">
-                        <div class="tooltipimg">
-                            <img src="images/poker_cartoon.png" alt="Poker Dealer" height="250" width="250">
-                        </div>
-                        <div class="tooltiptext">
-                            <h1>Welcome to A Thousand Nights in <span style="color:red">Vegas</span>.</h1>
-                            <h2 id="startText">To begin, please start by choosing a game down below.</h2>
-                        </div>
+                <div class="tooltip">
+                    <div class="tooltipimg">
+                        <img src="images/poker_cartoon.png" alt="Poker Dealer" height="250" width="250">
                     </div>
+                    
+                    <div class="tooltiptext">
+                        <h1>Welcome to A Thousand Nights in <span style="color:red">Vegas</span>.</h1>
+                        <h2 id="startText">To begin, please start by choosing a game down below.</h2>
+                    </div>
+                </div>
+                
+                <div id="gamecontainer">
                     <h1 class="clickAppear">Games</h1>
                     
                     <div id="hiddengames" class="clickText">
                             <select id="gamelist" size="4">
                                 <option class="game1" value="1">Baccarat</option>
-                                <option class="game2" value="2">Roulette</option>
+                                <option class="game2" value="2" selected="selected" >Roulette</option>
                                 <option class="game3" value="3">Black Jack</option>
                                 <option class="game4" value="4">Craps</option>
                             </select>
@@ -62,8 +64,8 @@ INSTRUCTOR: Suresh K. Lodha
                     <h1 class="clickAppear">Rules</h1>
                     
                     <div id="hiddenrules" class="clickText">
-                        Starting cash:<INPUT NAME="startCash"><BR><BR>
-                        Bet amount:   <INPUT NAME="betCash"><BR><BR>
+                        Starting cash:<INPUT NAME="startCash" value="100"><BR><BR>
+                        Bet amount:   <INPUT NAME="betCash" value="10"><BR><BR>
                     </div>
                 </div>
                 

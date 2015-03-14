@@ -34,12 +34,13 @@ body {
     float: left;
     margin: 0px;
     background-color:#eee;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .tooltip {
     width: 542px;
     height: 280px;
+    text-align: center;
 }
 
 .tooltipimg {
@@ -62,16 +63,27 @@ body {
 }
 
 #hiddengames {
+    font-size: 20px;
 }
 
 #rulescontainer {
     width: 100%;
     text-align: center;
+    border-bottom: 1px solid #eee;
+}
+
+#hiddenrules {
+    font-size: 20px;
 }
 
 #strategycontainer {
     width: 100%;
     text-align: center;
+    border-bottom: 1px solid #eee;
+}
+
+#hiddenstrategies {
+    font-size: 20px;
 }
 
 .startbutton {
