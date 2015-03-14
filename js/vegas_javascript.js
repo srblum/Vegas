@@ -1,6 +1,6 @@
-var gameName = "Game";
+var gameName = "Roulette";
 var winFrac = 1/2;
-
+var loaded = false;
 window.onload = function() {
     var fakeForm = {
         startCash:{value:100},
@@ -11,7 +11,11 @@ window.onload = function() {
 
 /* When Games, Rules, or Strategy gets clicked on, text appears or disappears */
 $(document).ready(function() {
-	
+	$('#blackStratList').hide();
+    $('#crapsStratList').hide();
+    $('#rouletteStratList').hide();
+
+
 	$(".clickText").hide();
 	
 	$(".clickAppear").click(function() {
@@ -21,21 +25,37 @@ $(document).ready(function() {
     $(".game1").click(function() {
         gameName = "Baccarat";
         winFrac = 45/100;
+        $('#bacStratList').show();
+        $('#blackStratList').hide();
+        $('#crapsStratList').hide();
+        $('#rouletteStratList').hide();
 	});
     
     $(".game2").click(function() {
         gameName = "Roulette";
         winFrac = 48/100;
+        $('#bacStratList').hide();
+        $('#blackStratList').hide();
+        $('#crapsStratList').hide();
+        $('#rouletteStratList').show();
 	});
     
     $(".game3").click(function() {
         gameName = "BlackJack";
         winFrac = 43/100;
+        $('#bacStratList').hide();
+        $('#blackStratList').show();
+        $('#crapsStratList').hide();
+        $('#rouletteStratList').hide();
 	});
     
     $(".game4").click(function() {
         gameName = "Craps";
         winFrac = 49/100;
+        $('#bacStratList').hide();
+        $('#blackStratList').hide();
+        $('#crapsStratList').show();
+        $('#rouletteStratList').hide();
 	});
 });
 
@@ -44,9 +64,9 @@ $(document).ready(function() {
 function runSim(form) {
     var startCash = Number(form.startCash.value);
     var betCash = Number(form.betCash.value);
-    if(gameName == "Game") {
+    if(loaded == false) {
         document.getElementById("startText").style.color = "black";
-
+        loaded=true;
     }else{
     document.getElementById("startText").style.color = "black";
     document.getElementById("startText").innerHTML = "You started with $" + startCash + ". Each game you decided to bet $" + betCash + ". On the graph to the right, the black lines represents a thousand simulation of possible outcomes over 100 game plays. The red line is your average cash over time.";
@@ -419,7 +439,7 @@ function drawHist(cashArrs, svg, w, h, padding){
 // x position of rectangle should be end of graph display
         .attr("y", function(d) { return yScaleHist(d.x) - binHeight; } ) // d.x is hist bin's relative start, NOT x position
 // y position of rectangle should be based on the bounds of the bin.
-        .attr("width", function(d) { console.log(d.y); return xScaleHist(d.y); }) // d.y is count within hist bin, NOT y position
+        .attr("width", function(d) {return xScaleHist(d.y); }) // d.y is count within hist bin, NOT y position
 // Width of rectangle should be pegged to xScaled data value, i.e. count of items in histogram
         .attr("height", binHeight)
 // Height of rectangle should be based on yScaled "width" of the bin
