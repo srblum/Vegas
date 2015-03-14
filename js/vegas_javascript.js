@@ -115,6 +115,7 @@ function runSim(form) {
     var yAxis = d3.svg.axis()
                       .scale(yScale)
                       .orient("left")
+                      .tickFormat(function(d){return "$"+d;})
                       .ticks(7);
     // Creates functions for the X and Y Grid to be created
     function gridYaxis() {
@@ -148,7 +149,7 @@ function runSim(form) {
         .attr("dy", "-3em")
         .style("font-size", "20px")
         .style("text-anchor", "middle") 
-        .text("Value in Dollars ($)");
+        .text("Cash");
     
     // Creates xAxis label
     svg.append("text")
