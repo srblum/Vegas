@@ -11,9 +11,9 @@ window.onload = function() {
 
 /* When Games, Rules, or Strategy gets clicked on, text appears or disappears */
 $(document).ready(function() {
+    $('#bacStratList').hide();
 	$('#blackStratList').hide();
     $('#crapsStratList').hide();
-    $('#rouletteStratList').hide();
 
 
 	$(".clickText").hide();
