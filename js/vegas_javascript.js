@@ -122,8 +122,8 @@ function runSim(form) {
         .y(function(d) { return yScale(d[1]); });
 
     //Recreate svg element
-    d3.select('.graphcontainer').selectAll('svg').remove();
-    var svg = d3.select('.graphcontainer').append('svg')
+    d3.select('.graph').selectAll('svg').remove();
+    var svg = d3.select('.graph').append('svg')
         .attr('width', w)
         .attr('height', h);
 

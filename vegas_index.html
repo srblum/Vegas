@@ -56,16 +56,6 @@ INSTRUCTOR: Suresh K. Lodha
                                 <option class="game3" value="3">Black Jack</option>
                                 <option class="game4" value="4">Craps</option>
                             </select>
-                        <h1></h1>
-                    </div>
-                </div>
-                
-                <div id="rulescontainer">
-                    <h1 class="clickAppear">Rules</h1>
-                    
-                    <div id="hiddenrules" class="clickText">
-                        Starting cash:<INPUT NAME="startCash" value="100"><BR><BR>
-                        Bet amount:   <INPUT NAME="betCash" value="10"><BR><BR>
                     </div>
                 </div>
                 
@@ -91,15 +81,19 @@ INSTRUCTOR: Suresh K. Lodha
                     </div>
                 </div>
                 
-                <div class="startbutton">
+            </div>
+            <div class="graphcontainer">
+                <div class="graph"></div>
+                <div id="rulescontainer">
+                    <div id="hiddenrules">
+                        Starting cash:<INPUT NAME="startCash" value="100"><BR><BR>
+                        Bet amount:   <INPUT NAME="betCash" value="10"><BR><BR>
+                    </div>
                     <INPUT TYPE="button" Value="Simulate Game" onClick="runSim(this.form)">
                 </div>
             </div>
-            </FORM>
-            <div class="graphcontainer">
-            </div>
         </div>
-                            
+        </FORM>              
         <div class="additionalinfo" style="list-style: none;">
             <div id="memberslist">
                 <h3>Members</h3>
