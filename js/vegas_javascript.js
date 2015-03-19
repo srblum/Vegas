@@ -364,6 +364,7 @@ function simRoulette(startCash,betCash,numPlays,strat){
 function simBlackJack(startCash,betCash,numPlays){
     var cashArr=[startCash];
     var curCash=startCash;
+    var winFrac=.5018646;
     var wagerCash;
     for(var i=0;i<numPlays;i++){
         if(curCash>0){
