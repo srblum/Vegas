@@ -74,7 +74,7 @@ function runSim(form) {
     document.getElementById("startText").innerHTML = "You started with $" + startCash + ". Each game you decided to bet $" + betCash + ". On the graph to the right, the black lines represents a thousand simulation of possible outcomes over 100 game plays. The red line is your average cash over time.";
     }
     var numPlays = 100;
-    var numNights = 10000;
+    var numNights = 1000;
     var cashArrs=[];
     for(var i=0;i<numNights;i++){
         if(gameName == "Roulette"){
@@ -260,11 +260,42 @@ function simRoulette(startCash,betCash,numPlays,strat){
     return cashArr
 }
 
-function simCraps(startCash,betCash,numPlays){
-    var cashArr=[startCash];
-    var curCash=startCash;
-    var wagerCash;
-    for(var i=0;i<numPlays;i++){
+// function simCraps(startCash,betCash,numPlays){
+//     var cashArr=[startCash];
+//     var curCash=startCash;
+//     var wagerCash;
+//     for(var i=0;i<numPlays;i++){
+//         if(curCash>0){
+//             wagerCash = betCash; // wagerCash is a check to make sure we're betting max available cash, resets itself every loop
+//             if(curCash < betCash)
+//                 wagerCash = curCash;
+//             if(Math.random()<winFrac){
+//                 curCash+=wagerCash;
+//             }else{curCash-=wagerCash;}
+//         }else{}
+//         cashArr[cashArr.length]=curCash;
+//     }
+//     return cashArr
+// }
+
+
+
+// Simulates craps bets, over numPlays number of individual rolls
+ function simCraps(startCash, betCash, numPlays){
+     var stratIndex = document.getElementById("crapsStratList").selectedIndex; // Which craps strategy was selected
+     // Index 0 = optimal, index 1 = Pass line, index 2 = don't pass
+     var cashArr = [startCash];
+     var curCash = startCash;
+     var wagerCash; // The amount we'll bet in a given round
+     var comeOut = true; // A come out roll is the first roll of a shooter's round. Sim assumes first bet is always on a come out
+     var roundComplete = false; // Each round of play can consist of multiple rolls
+     var pointSet = 0; // Value is set by a successful come out roll, this roll becomes target to match before hitting 7
+     // On a come out roll, pointSet assigned 0, representing no point has been set
+     function rollDice() { return (Math.floor((Math.random() * 6) + 1) + Math.floor((Math.random() * 6) + 1)); }
+     // Returns sum of two results between 1 and 6, i.e. sum of two die rolls
+
+     if(stratIndex == 0){ // Optimal play selected, simplified betting
+        for(var i=0;i<numPlays;i++){
         if(curCash>0){
             wagerCash = betCash; // wagerCash is a check to make sure we're betting max available cash, resets itself every loop
             if(curCash < betCash)
@@ -274,58 +305,61 @@ function simCraps(startCash,betCash,numPlays){
             }else{curCash-=wagerCash;}
         }else{}
         cashArr[cashArr.length]=curCash;
-    }
-    return cashArr
+        }
+     }
+     else{ for(var i = 0; i < numPlays; i++){ // For all other betting strategies
+         if(curCash > 0){ // We only bet if we have any money left
+            if(curCash < betCash) // If we don't have as much money as we want to wager..
+                wagerCash = curCash; // We bet as much as what we have
+            else
+                wagerCash = betCash; // Else we bet the intended amount
+            while(roundComplete == false) // While the round is not done...
+            {
+                var rollResult = rollDice(); // Roll the dice and look at result
+                if(comeOut == true){ // If it was the come out...
+                    if(rollResult == 7 || rollResult == 11){
+                        if(stratIndex == 1) { curCash = curCash + wagerCash; }// Pass line victory
+                        if(stratIndex == 2) { curCash = curCash - wagerCash; }// Don't pass loss
+                        comeOut = true;
+                        roundComplete = true; // End of round
+                    }
+                    else if(rollResult == 2 || rollResult == 3 || rollResult == 12){
+                        if(stratIndex == 1) { curCash = curCash - wagerCash; } // Pass line loss
+                        if(stratIndex == 2) { curCash = curCash + wagerCash; }// Don't pass victory
+                        comeOut = true;
+                        roundComplete = true; // End of round
+                    }
+                    else{
+                        comeOut = false;
+                        pointSet = rollResult; // New rolls against point that's been set
+                    }
+                }
+                else{ // If it wasn't the come out...
+                    if(rollResult == pointSet){ // Dice rolled match pointSet
+                        if(stratIndex == 1) { curCash = curCash + wagerCash; } // Pass line victory
+                        if(stratIndex == 2) { curCash = curCash - wagerCash; } // Don't pass loss
+                        comeOut = true;
+                        roundComplete = true; // End of round
+                    }
+                    else if(rollResult == 7){ // Dice roll a 7, before getting pointSet
+                        if(stratIndex == 1) { curCash = curCash - wagerCash; } // Pass line loss
+                        if(stratIndex == 2) { curCash = curCash + wagerCash; }// Don't pass victory
+                        comeOut = true;
+                        roundComplete = true;
+                    }
+                    else{ comeOut = false; }
+                    // ...if neither of those is true, we just roll again
+                }
+            } // End of round
+            roundComplete = false; // Set this so new round can begin
+            pointSet = 0; // No point yet set in the new round
+         } // End of "if curCash > 0" clause, we can skip entire game if we're broke!
+         cashArr[cashArr.length]=curCash; // Bankroll after round's bet added to bankroll array
+       } // End of for loop
+     } // End of "else" for strategy selection
+     return cashArr;
 }
 
-
-
-//
-//THE CODE BELOW HAS NOT YET BEEN FULLY INTEGRATED... 
-//
-
-// Simulates craps bets, over numPlays number of individual rolls
-// function simCraps(startCash, betCash, numPlays){
-//     var cashArr = [startCash];
-//     var curCash = startCash;
-//     var wagerCash;
-//     var comeOut = true; // A come out roll is the first roll of a shooter's round. Sim assumes first bet is always on a come out
-//     var pointSet = 0; // Value is set by a successful come out roll, this roll becomes target to match before hitting 7
-//     // On a come out roll, pointSet assigned 0, representing no point has been set
-//     function rollDice() { return (Math.floor((Math.random() * 6) + 1) + Math.floor((Math.random() * 6) + 1)); }
-//     // Returns sum of two results between 1 and 6, i.e. sum of two die rolls
-//     for(var i = 0; i < numPlays; i++){
-//         var rollResult = rollDice(); // Shooter's roll result
-//         if(comeOut == true){ // If it was the come out...
-//             if(rollResult == 7 || rollResult == 11)
-//                 comeOut = true;
-//                 // Pass line victory, don't pass loss, next roll still comeOut
-//             else if(rollResult == 2 || rollResult == 3 || rollResult == 12)
-//                 comeOut = true;
-//                 // Don't pass victory, pass line loss, next roll still comeOut
-//             else{
-//                 comeOut = false;
-//                 pointSet = rollResult;
-//             }
-//         }
-//         else{ // If it wasn't the come out...
-//             if(rollResult == pointSet){
-//             // Pass line victory, don't pass loss
-//                comeOut = true;
-//             }
-//             else if(rollResult == 7){
-//             // Don't pass victory, pass line loss
-//                comeOut = true;
-//             }
-//             else{} // Reroll
-//                comeOut = false;
-//         }
-//     }
-// }
-
-//
-//
-//
 
 function simBlackJack(startCash,betCash,numPlays){
     var cashArr=[startCash];
@@ -413,6 +447,73 @@ function drawPath(cashArr,svg,line,pathClass){
         };
     }
 }
+//
+//Old version
+//
+
+// // Takes array of cash values and draws vertical histogram
+// // Modified from Mike Bostock's histogram code: http://bl.ocks.org/mbostock/3048450
+// function drawHist(cashArrs, svg, w, h, padding){
+// // Takes array of arrays as input, but this function only cares about ending bankroll
+    
+//     var histMargin = 20; // Number of horizontal pixels to buffer graph from histogram
+//     var displayHeight = h - (padding * 2); // Number of pixels of height of histogram
+//     var displayXStart = w - padding + histMargin; // X position where histogram starts
+    
+//     var binCount = 15; // Sets bin count for hist
+//     var binHeight = displayHeight/binCount; // This will form histogram bar height
+    
+//     endCash = []; // Array to store only final bankrolls
+//     for(var i = 0; i < cashArrs.length; i++){ // For each array stored in cashArrs...
+//         endCash[i] = cashArrs[i][(cashArrs[i].length) - 1]; // Store last element of i-th array in endCash
+//     }
+//   //  console.log(endCash);
+    
+//     var yScaleHist = d3.scale.linear()
+//         .domain([0, d3.max(endCash)]) // From lowest to highest bankrolls at end of night
+//         .range([h - (padding), padding]); // Display height
+    
+//     var histData = d3.layout.histogram() // Generates a histogram with 20 equal bins
+//         .bins(binCount) // Adjusts span of bins by yScaleHist to end up with 20
+//         (endCash);
+    
+//   //  console.log(histData);
+    
+//     var xScaleHist = d3.scale.linear()
+//         .domain([0,
+//                  d3.max(histData, function(d) { return d.y; } )]) // d.y = bin COUNT, not x-y position
+// // Domain is variation in COUNT of stuff in bins, from lowest to the highest of bin counts!
+//  //       .range([displayXStart, displayXStart + padding]); // Width display of pixels go from right of graph display to edge of canvas
+//         .range([0, padding]);
+    
+//     // svg element already declared, shouldn't need to declare it again
+    
+//     svg.append("g")
+//         .attr("transform", "translate(" + (w - (padding * 2) + histMargin) + "," + padding + ")"); // element appended in position
+    
+//     var histbar = svg.selectAll(".histbar")
+//         .data(histData)
+//         .enter()
+//         .append("g")
+//         .attr("class", "histbar")
+    
+//     histbar.append("rect")
+// //         .transition().duration(1000) Currently doens't seem to work
+//         .attr("x", w - (padding * 2) + histMargin)
+// // x position of rectangle should be end of graph display
+//         .attr("y", function(d) { return yScaleHist(d.x) - binHeight; } ) // d.x is hist bin's relative start, NOT x position
+// // y position of rectangle should be based on the bounds of the bin.
+//         .attr("width", function(d) {return xScaleHist(d.y); }) // d.y is count within hist bin, NOT y position
+// // Width of rectangle should be pegged to xScaled data value, i.e. count of items in histogram
+//         .attr("height", binHeight)
+// // Height of rectangle should be based on yScaled "width" of the bin
+
+// }
+
+//
+//
+//
+
 
 
 // Takes array of cash values and draws vertical histogram
@@ -420,21 +521,23 @@ function drawPath(cashArr,svg,line,pathClass){
 function drawHist(cashArrs, svg, w, h, padding){
 // Takes array of arrays as input, but this function only cares about ending bankroll
     
-    var histMargin = 20; // Number of horizontal pixels to buffer graph from histogram
+    var histMargin = 0; // Number of horizontal pixels to buffer graph from histogram, currently flush
+    var textMargin = 5; // Number of pixels to separate hover-over text from histogram bars
     var displayHeight = h - (padding * 2); // Number of pixels of height of histogram
     var displayXStart = w - padding + histMargin; // X position where histogram starts
     
-    var binCount = 15; // Sets bin count for hist
+    var binCount = 20; // Sets bin count for hist
     var binHeight = displayHeight/binCount; // This will form histogram bar height
     
+    var startCash = cashArrs[0][0]; // Value of original bankroll
+    var numGamblers = cashArrs.length;
     endCash = []; // Array to store only final bankrolls
     for(var i = 0; i < cashArrs.length; i++){ // For each array stored in cashArrs...
         endCash[i] = cashArrs[i][(cashArrs[i].length) - 1]; // Store last element of i-th array in endCash
     }
-  //  console.log(endCash);
     
     var yScaleHist = d3.scale.linear()
-        .domain([0, d3.max(endCash)]) // From lowest to highest bankrolls at end of night
+        .domain([d3.min(endCash), d3.max(endCash)]) // From lowest to highest bankrolls at end of night
         .range([h - (padding), padding]); // Display height
     
     var histData = d3.layout.histogram() // Generates a histogram with 20 equal bins
@@ -471,5 +574,25 @@ function drawHist(cashArrs, svg, w, h, padding){
 // Width of rectangle should be pegged to xScaled data value, i.e. count of items in histogram
         .attr("height", binHeight)
 // Height of rectangle should be based on yScaled "width" of the bin
-
+        .each(function(d){ // Goes through each bar
+            if((d.x + d.dx) > startCash) // Splits based on whether they were above starting bankroll
+                d3.select(this).style("fill","#79b"); // Fills with appropriate color for profit
+            else
+                d3.select(this).style("fill","#FF3333"); // Fills with color for loss
+        })
+        .on('mouseover', function(d){
+            var xPosText = w - (padding * 2) + histMargin + xScaleHist(d.y) + textMargin;
+            var yPosText = yScaleHist(d.x) - (binHeight * 3.5/10);
+        
+            svg.append("text")
+            .attr("id", "histtext")
+            .attr("x", xPosText)
+            .attr("y", yPosText)
+            .attr("text-anchor", "left")
+            .attr("font-size", "11px")
+            .text((d.y * 100 / numGamblers).toFixed(2) + "% of gamblers"); // Percentage of gamblers
+        })
+        .on('mouseout', function() {
+            svg.select("#histtext").remove();
+        })
 }
