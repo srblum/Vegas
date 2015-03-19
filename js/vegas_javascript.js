@@ -30,6 +30,7 @@ $(document).ready(function() {
         $('#blackStratList').hide();
         $('#crapsStratList').hide();
         $('#rouletteStratList').hide();
+        $("#startText").text("Baccarat is a comparing card game palyed between two hands, the player and the banker. Each baccarat has three possible outcomes: player, banker, and tie.");
 	});
     
     $(".game2").click(function() {
@@ -39,6 +40,7 @@ $(document).ready(function() {
         $('#blackStratList').hide();
         $('#crapsStratList').hide();
         $('#rouletteStratList').show();
+        $("#startText").text("Roulette is a casino game where players may choose to place bets on either a single number or a range of numbers, the colors red or black, or whether the number is odd or even.");
 	});
     
     $(".game3").click(function() {
@@ -48,6 +50,7 @@ $(document).ready(function() {
         $('#blackStratList').show();
         $('#crapsStratList').hide();
         $('#rouletteStratList').hide();
+        $("#startText").text("BlackJack, also known as twenty-one is a comparing card game between a player and dealer, and the objective of this game is to get 21 points on the player's first two cards, or reach a final score equal to, or less than 21.");
 	});
     
     $(".game4").click(function() {
@@ -57,6 +60,7 @@ $(document).ready(function() {
         $('#blackStratList').hide();
         $('#crapsStratList').show();
         $('#rouletteStratList').hide();
+        $("#startText").text("Craps is a dice game in which the player makes wagers on the outcome of the roll, or a series of rolls, of a pair of dice.");
 	});
 });
 
@@ -71,7 +75,7 @@ function runSim(form) {
         loaded=true;
     }else{
     document.getElementById("startText").style.color = "black";
-    document.getElementById("startText").innerHTML = "You started with $" + startCash + ". Each game you decided to bet $" + betCash + ". On the graph to the right, the black lines represents a thousand simulation of possible outcomes over 100 game plays. The red line is your average cash over time.";
+    document.getElementById("startText").innerHTML = "You started with $" + startCash + ". Each game you decided to bet $" + betCash + ". On the graph to the right, the black line is your average cash change over time, grey lines are different simulations, and the red lines are people who went broke.";
     }
     var numPlays = 100;
     var numNights = 1000;

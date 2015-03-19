@@ -1,7 +1,7 @@
 /* CSS for Body */
 body {
     font-family: sans-serif;
-    background-color: #E0E9E9;
+    background-color: #F0F8FF;
 }
 
 /* CSS for the index title "A Thousand Nights in Vegas */
@@ -11,6 +11,7 @@ body {
     text-align: center;
     margin: 0 auto;
     font-size: 25px;
+    text-shadow: 1px 1px 1px #000;
 }
 
 .maintitle strong {
@@ -26,6 +27,7 @@ body {
     height: 800px;
     width: 1800px;
     margin: 0 auto;
+    text-shadow: 0.5px 0.5px 0.5px #000;
 }
 
 /* CSS for user game options */
@@ -36,6 +38,7 @@ body {
     margin: 0px;
     background-color:#3366CC;
     font-size: 12px;
+    border-top: 2px solid #ddd;
 }
 
 .tooltip {
@@ -60,7 +63,6 @@ body {
 #gamecontainer {
     width: 100%;
     text-align: center;
-    background-color: #003399;
 }
 
 #hiddengames {
@@ -81,7 +83,6 @@ body {
 #strategycontainer {
     width: 100%;
     text-align: center;
-    background-color: #003399;
 }
 
 #hiddenstrategies {
@@ -113,7 +114,8 @@ body {
     height: 800px;
     width: 1256px;
     float: right;
-    background-color: #E7E7E7;
+    background-color: #ADD8E6;
+    border-top: 2px solid #ddd;
 }
 
 path{
@@ -188,7 +190,7 @@ path:hover{
 /* CSS for additional info */
 .additionalinfo {
     width: 1800px;
-    height: 200px;
+    height: 230px;
     margin: 0 auto;
     text-align: left;
     background-color:#6699FF;
