@@ -364,8 +364,18 @@ function simRoulette(startCash,betCash,numPlays,strat){
 function simBlackJack(startCash,betCash,numPlays){
     var cashArr=[startCash];
     var curCash=startCash;
-    var winFrac=.5018646;
+    var cashArr=[startCash];
+    var curCash=startCash;
     var wagerCash;
+    
+    if ($("#blackStratList option:selected").text() == "Basic Strategy") {
+        winFrac = 4336/10000;
+    } else if ($("#blackStratList option:selected").text() == "House Edge"){
+        winFrac = 4468/10000;
+    } else {
+        winFrac = 3468/10000;
+    }
+    
     for(var i=0;i<numPlays;i++){
         if(curCash>0){
             wagerCash = betCash; // wagerCash is a check to make sure we're betting max available cash, resets itself every loop
