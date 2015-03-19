@@ -4,7 +4,8 @@ var loaded = false;
 window.onload = function() {
     var fakeForm = {
         startCash:{value:100},
-        betCash:{value:10}
+        betCash:{value:10},
+        rouletteStratList:{value:"colorBet"}
     };
     runSim(fakeForm);
 };
@@ -64,6 +65,7 @@ $(document).ready(function() {
 function runSim(form) {
     var startCash = Number(form.startCash.value);
     var betCash = Number(form.betCash.value);
+    // var strat = form.
     if(loaded == false) {
         document.getElementById("startText").style.color = "black";
         loaded=true;
@@ -72,21 +74,20 @@ function runSim(form) {
     document.getElementById("startText").innerHTML = "You started with $" + startCash + ". Each game you decided to bet $" + betCash + ". On the graph to the right, the black lines represents a thousand simulation of possible outcomes over 100 game plays. The red line is your average cash over time.";
     }
     var numPlays = 100;
-    var numNights = 300;
+    var numNights = 10000;
     var cashArrs=[];
     for(var i=0;i<numNights;i++){
         if(gameName == "Roulette"){
-            cashArrs[cashArrs.length]=simRoulette(startCash,betCash,numPlays);
+            cashArrs[cashArrs.length]=simRoulette(startCash,betCash,numPlays,form.rouletteStratList.value);
         }else if(gameName == "Craps"){
             cashArrs[cashArrs.length]=simCraps(startCash,betCash,numPlays);
         }else if(gameName == "BlackJack"){
             cashArrs[cashArrs.length]=simBlackJack(startCash,betCash,numPlays);
         }else if(gameName == "Baccarat"){
-            cashArrs[cashArrs.length]=simBaccarat(startCash,betCash,numPlays);
+            cashArrs[cashArrs.length]=simBaccarat(startCash,betCash,numPlays,form.bacStratList.value);
         }else{
             cashArrs[cashArrs.length]=simRoulette(startCash,betCash,numPlays);
         }
-
     }
 
     //Store an average of all arrays of cashArr in aveArr
@@ -219,7 +220,7 @@ function runSim(form) {
         .text(gameName);    
 
     //Draw all 1000 simulations and average
-    for(var i=0;i<cashArrs.length;i++){
+    for(var i=0;i<300;i++){
         if (cashArrs[i][100]==0){
             drawPath(cashArrs[i],svg,line,'brokeLine')
         }
@@ -234,29 +235,32 @@ function runSim(form) {
 
 //Simulates a single night of roulette (100 spins)
 //Returns an array of 101 cash values
-function simRoulette(startCash,betCash,numPlays){
+function simRoulette(startCash,betCash,numPlays,strat){
 	var cashArr=[startCash];
 	var curCash=startCash;
-    var cashArr=[startCash];
-    var curCash=startCash;
     var wagerCash;
+    if(strat=='colorBet'){
+        winFrac=18/37;
+        payout=1;
+    }else if(strat=='numberBet'){
+        winFrac=1/37;
+        payout=35;
+    }
     for(var i=0;i<numPlays;i++){
         if(curCash>0){
             wagerCash = betCash; // wagerCash is a check to make sure we're betting max available cash, resets itself every loop
             if(curCash < betCash)
                 wagerCash = curCash;
             if(Math.random()<winFrac){
-                curCash+=wagerCash;
+                curCash+=wagerCash*payout;
             }else{curCash-=wagerCash;}
-        }else{}
+        }
         cashArr[cashArr.length]=curCash;
     }
     return cashArr
 }
 
 function simCraps(startCash,betCash,numPlays){
-    var cashArr=[startCash];
-    var curCash=startCash;
     var cashArr=[startCash];
     var curCash=startCash;
     var wagerCash;
@@ -326,8 +330,6 @@ function simCraps(startCash,betCash,numPlays){
 function simBlackJack(startCash,betCash,numPlays){
     var cashArr=[startCash];
     var curCash=startCash;
-    var cashArr=[startCash];
-    var curCash=startCash;
     var wagerCash;
     for(var i=0;i<numPlays;i++){
         if(curCash>0){
@@ -343,21 +345,47 @@ function simBlackJack(startCash,betCash,numPlays){
     return cashArr
 }
 
-function simBaccarat(startCash,betCash,numPlays){
-    var cashArr=[startCash];
-    var curCash=startCash;
+function simBaccarat(startCash,betCash,numPlays,strat){
+    var winFrac = 0.458597;
+    var lossFrac = 0.446247;
     var cashArr=[startCash];
     var curCash=startCash;
     var wagerCash;
+    var payout;
+    var loss;
+    var tie;
+    if(strat=='bankerBet'){
+        payout=0.95;
+        loss=-1;
+        tie=0;
+    }else if(strat=='playerBet'){
+        payout=-1;
+        loss=1;
+        tie=0;
+    }else if(strat=='tieBet'){
+        payout=-1;
+        loss=-1;
+        tie=8;
+    }else if(strat=='pairBet'){
+        winFrac=0.074699;
+        lossFrac=0;
+        payout=11;
+        loss=-1;
+        tie=-1;
+    }
     for(var i=0;i<numPlays;i++){
+        var rand=Math.random();
         if(curCash>0){
             wagerCash = betCash; // wagerCash is a check to make sure we're betting max available cash, resets itself every loop
-            if(curCash < betCash)
-                wagerCash = curCash;
-            if(Math.random()<winFrac){
-                curCash+=wagerCash;
-            }else{curCash-=wagerCash;}
-        }else{}
+            if(curCash < betCash){wagerCash = curCash;}
+            if(rand<winFrac){
+                curCash+=wagerCash*payout;
+            }else if(rand<(winFrac+lossFrac)){
+                curCash+=wagerCash*loss;
+            }else{
+                curCash+=wagerCash*tie;
+            }
+        }
         cashArr[cashArr.length]=curCash;
     }
     return cashArr
