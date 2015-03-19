@@ -114,7 +114,7 @@ function runSim(form) {
         .range([padding, w - padding * 2]);
 
     var yScale = d3.scale.linear()
-        .domain([0, d3.max(cashArrs,function(x){return d3.max(x)})])
+        .domain([d3.min(cashArrs,function(x){return d3.min(x)}), d3.max(cashArrs,function(x){return d3.max(x)})])
         .range([h - padding, padding]);
 
     //d3.svg.line is a path generator (both object and function), containing scale information
@@ -151,7 +151,7 @@ function runSim(form) {
         .attr("class", "grid")
         .attr("transform", "translate(160,0)")
         .call(gridYaxis()
-            .tickSize(-430, 0, 0)
+            .tickSize(-420, 0, 0)
             .tickFormat("")
         )
 
@@ -323,7 +323,7 @@ function simRoulette(startCash,betCash,numPlays,strat){
                         comeOut = true;
                         roundComplete = true; // End of round
                     }
-                    else if(rollResult == 2 || rollResult == 3 || rollResult == 12){
+                    else if(rollResult == 2 || rollResult == 3){
                         if(stratIndex == 1) { curCash = curCash - wagerCash; } // Pass line loss
                         if(stratIndex == 2) { curCash = curCash + wagerCash; }// Don't pass victory
                         comeOut = true;
@@ -515,8 +515,6 @@ function drawPath(cashArr,svg,line,pathClass){
 //
 //
 
-
-
 // Takes array of cash values and draws vertical histogram
 // Modified from Mike Bostock's histogram code: http://bl.ocks.org/mbostock/3048450
 function drawHist(cashArrs, svg, w, h, padding){
@@ -536,6 +534,15 @@ function drawHist(cashArrs, svg, w, h, padding){
     for(var i = 0; i < cashArrs.length; i++){ // For each array stored in cashArrs...
         endCash[i] = cashArrs[i][(cashArrs[i].length) - 1]; // Store last element of i-th array in endCash
     }
+    var percentBroke = 0; // Calculates percent of gamblers who went broke
+    for(var i = 0; i < endCash.length; i++){
+        if(endCash[i] == 0)
+            percentBroke++;
+    }
+    percentBroke = (percentBroke/numGamblers * 100).toFixed(2);
+                   
+    var highestXPos; var highestYPos = 99999; // Coordinates to be altered for writing highest gambler result
+    var lowestXPos; var lowestYPos = 0; // Coordinates to be altered for writing lowest gambler results
     
     var yScaleHist = d3.scale.linear()
         .domain([d3.min(endCash), d3.max(endCash)]) // From lowest to highest bankrolls at end of night
@@ -575,18 +582,32 @@ function drawHist(cashArrs, svg, w, h, padding){
 // Width of rectangle should be pegged to xScaled data value, i.e. count of items in histogram
         .attr("height", binHeight)
 // Height of rectangle should be based on yScaled "width" of the bin
-        .each(function(d){ // Goes through each bar
+        .each(function(d){
+            //Goes through each bar to track highest and lowest bars
+            // Finding lowest
+            if((yScaleHist(d.x) - binHeight) > lowestYPos){ // If pixel position # is larger, it's lower on the drawing
+                lowestYPos = (yScaleHist(d.x) - binHeight);
+                lowestXPos = w - (padding * 2) + histMargin + xScaleHist(d.y) + textMargin;
+            } // Finding highest
+            if((yScaleHist(d.x) - binHeight) < highestYPos){ // If pixel position # is lower, it's higher on the drawing
+                highestYPos = (yScaleHist(d.x) - binHeight);
+                highestXPos = w - (padding * 2) + histMargin + xScaleHist(d.y) + textMargin;
+            }
+        })
+        .each(function(d){ // Goes through each bar to add appropriate color
             if((d.x + d.dx) > startCash) // Splits based on whether they were above starting bankroll
                 d3.select(this).style("fill","#79b"); // Fills with appropriate color for profit
             else
                 d3.select(this).style("fill","#FF3333"); // Fills with color for loss
         })
         .on('mouseover', function(d){
+            svg.select("#mintext").transition().style("opacity", 0);
+            svg.select("#maxtext").transition().style("opacity", 0);
             var xPosText = w - (padding * 2) + histMargin + xScaleHist(d.y) + textMargin;
             var yPosText = yScaleHist(d.x) - (binHeight * 3.5/10);
         
             svg.append("text")
-            .attr("id", "histtext")
+			.attr("id", "histtext")
             .attr("x", xPosText)
             .attr("y", yPosText)
             .attr("text-anchor", "left")
@@ -595,5 +616,26 @@ function drawHist(cashArrs, svg, w, h, padding){
         })
         .on('mouseout', function() {
             svg.select("#histtext").remove();
-        })
+            svg.select("#mintext").transition().style("opacity", 1);
+            svg.select("#maxtext").transition().style("opacity", 1);
+        });
+   function drawMinMaxText(){  // Display text for luckiest and unluckiest gamblers
+        svg.append("text")
+            .attr("id", "maxtext")
+            .attr("x", highestXPos)
+            .attr("y", highestYPos + (binHeight *.7))
+            .attr("text-anchor", "left")
+            .attr("font-size", "11px")
+            .text("Luckiest gambler walked away with $" + d3.max(endCash));
+    
+        svg.append("text")
+            .attr("id", "mintext")
+            .attr("x", lowestXPos)
+            .attr("y", lowestYPos + (binHeight *.7))
+            .attr("text-anchor", "left")
+            .attr("font-size", "11px")
+            .text(percentBroke + "% went broke");
+    }
+    drawMinMaxText();
+
 }
